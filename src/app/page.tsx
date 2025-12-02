@@ -23,13 +23,7 @@ export default async function Home() {
           <h1 className="text-4xl font-bold mb-8 font-[family-name:var(--font-geist-sans)] text-[#333333]">
             Superblog
           </h1>
-          <ol className="list-decimal list-inside font-[family-name:var(--font-geist-sans)]">
-            {users.map((user) => (
-              <li key={user.id} className="mb-2">
-                {user.name}
-              </li>
-            ))}
-          </ol>
+        
           <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
             Looking for a starting point or more instructions? Head over to{" "}
             <a
