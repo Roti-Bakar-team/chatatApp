@@ -1,0 +1,41 @@
+* [33ma69142c[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdev[m[33m, [m[1;31morigin/dev[m[33m, [m[1;31morigin/arnolis[m[33m, [m[1;32marnolis[m[33m)[m Add component
+* [33m940d6cc[m Update file
+*   [33mb593247[m save progress
+[32m|[m[33m\[m  
+[32m|[m * [33md79dc14[m[33m ([m[1;31morigin/hadiid[m[33m)[m The Engine (Baileys + AI)
+* [33m|[m [33m1fb0953[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m update
+* [33m|[m [33m3cab30d[m Merge branch 'dev' of https://github.com/Roti-Bakar-team/chatatApp
+[34m|[m[33m\[m[33m|[m 
+[34m|[m * [33m17efa61[m update
+* [35m|[m [33mfefec39[m Merge branch 'dev' of https://github.com/Roti-Bakar-team/chatatApp
+[36m|[m[35m\[m[35m|[m 
+[36m|[m * [33me0d6a6a[m add wajs and setup api
+* [1;31m|[m [33m0bf01a5[m Merge branch 'dev' of https://github.com/Roti-Bakar-team/chatatApp
+[1;32m|[m[1;31m\[m[1;31m|[m 
+[1;32m|[m * [33me2e4ea9[m feat: add UI components for separator, sheet, sidebar, skeleton, sonner, table, tabs, toggle group, and tooltip
+* [1;33m|[m [33m7566b6c[m Merge branch 'dev' of https://github.com/Roti-Bakar-team/chatatApp
+[1;34m|[m[1;33m\[m[1;33m|[m 
+[1;34m|[m * [33m8db4eaa[m feat: update seeding script to remove user data and add product data for UMKM
+[1;34m|[m * [33m1be2c27[m refactor: restructure Prisma schema by removing User and Post models, and enhancing Order and Product models
+* [1;35m|[m [33m47715e6[m Merge branch 'dev' of https://github.com/Roti-Bakar-team/chatatApp
+[1;36m|[m[1;35m\[m[1;35m|[m 
+[1;36m|[m * [33m9a45414[m feat: add daisyui for enhanced UI components and styles
+* [31m|[m [33mb576b8d[m Merge branch 'dev' of https://github.com/Roti-Bakar-team/chatatApp
+[32m|[m[31m\[m[31m|[m 
+[32m|[m * [33me707bb6[m feat: display list of users on the Home page
+* [33m|[m [33mda8fb34[m chore: add .env*.local to .gitignore
+* [33m|[m [33mf21900f[m Merge branch 'dev' of https://github.com/Roti-Bakar-team/chatatApp
+[34m|[m[33m\[m[33m|[m 
+[34m|[m * [33mc8936e3[m refactor: remove user list from Home component
+* [35m|[m [33m81299c3[m Merge branch 'dev' of https://github.com/Roti-Bakar-team/chatatApp
+[36m|[m[35m\[m[35m|[m 
+[36m|[m * [33m94e5cf0[m feat: integrate Prisma with PostgreSQL and implement user and post models
+[36m|[m * [33m1e05bf5[m Add new UI components and styles; update dependencies
+[36m|[m * [33m2f73bc2[m Update README to clarify the 'hadiid' branch in Getting Started section
+[36m|[m * [33m3cd33c4[m Update README to specify 'dev branch' in Getting Started section
+* [1;31m|[m [33m5f3a51b[m Clarify README section title for getting started instructions
+[1;31m|[m[1;31m/[m  
+* [33mfb012fe[m Fix heading in README for clarity
+* [33m5999e9c[m Update README to clarify getting started instructions
+* [33m326913a[m first commit
+* [33m97be7a7[m Initial commit from Create Next App

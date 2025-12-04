@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import prisma from "@/lib/prisma";
 import { ConversationState } from "../generated/prisma/client";
 import { ParsedOrder } from "@/types";
@@ -7,9 +6,8 @@ export type ConversationStage =
   | "GATHERING_ITEMS"
   | "CONFIRMING_ORDER"
   | "GATHERING_CUSTOMER_INFO"
-  | "CONFIRMING_FINAL_ORDER"; // New state for final confirmation
+  | "CONFIRMING_FINAL_ORDER"; 
 
-// Get the current state for a user (e.g., by phone number)
 export async function getConversationState(
   userId: string
 ): Promise<ConversationState | null> {
@@ -18,7 +16,6 @@ export async function getConversationState(
   });
 }
 
-// Create or update a conversation state
 export async function updateConversationState(
   userId: string,
   state: ConversationStage,
@@ -31,7 +28,6 @@ export async function updateConversationState(
   });
 }
 
-// Delete a conversation state once the order is complete
 export async function deleteConversationState(userId: string): Promise<void> {
   await prisma.conversationState.delete({
     where: { id: userId },

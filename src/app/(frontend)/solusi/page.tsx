@@ -7,7 +7,8 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 
 export default function SolusiPage() {
-  const [activeTab, setActiveTab] = useState('retail');
+  type SolutionKey = 'retail';
+  const [activeTab, setActiveTab] = useState<SolutionKey>('retail');
 
   const solutions = {
     retail: {
@@ -59,7 +60,7 @@ export default function SolusiPage() {
             {Object.entries(solutions).map(([key, solution]) => (
               <button
                 key={key}
-                onClick={() => setActiveTab(key)}
+                onClick={() => setActiveTab(key as keyof typeof solutions)}
                 className={`flex items-center px-6 py-3 rounded-full font-medium transition-all ${
                   activeTab === key
                     ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg'
