@@ -1,24 +1,21 @@
-import prisma from "@/lib/prisma";
+import { processChatAction } from "@/actions/order-actions";
+import { ActionState } from "@/types";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    const { number, message } = await req.json();
+    const { number, chatRaw } = await req.json();
 
-    const pesan = await prisma.pesan.create({
-      data: {
-        nomor: number,
-        pesan: message,
-      },
+    // Initial state for the action
+    const initialState: ActionState = { success: false, message: "" };
+
+    // Correctly call the action
+    const res = await processChatAction(initialState, {
+      chatRaw: chatRaw,
+      userId: number,
     });
 
-    return NextResponse.json(
-      {
-        message: "Successfully",
-        data: pesan,
-      },
-      { status: 201 }
-    );
+    return NextResponse.json(res);
   } catch (error) {
     return NextResponse.json(
       { message: "Internal server error", error: String(error) },

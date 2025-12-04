@@ -1,6 +1,7 @@
 import { getRecentOrders } from "@/services/order-service";
 import { ChatInput } from "@/components/dashboard/chat-input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { WhatsAppQR } from "@/components/dashboard/wa-qr";
 
 // Component Async (Server Component)
 export default async function DashboardPage() {
@@ -18,9 +19,17 @@ export default async function DashboardPage() {
           <ChatInput />
         </div>
 
+        <Card className="md:col-span-1">
+          <CardHeader>
+            <CardTitle>Scan QR WhatsApp</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <WhatsAppQR />
+          </CardContent>
+        </Card>
+
         {/* Kolom Kanan: Daftar Order */}
         <div className="md:col-span-2 space-y-6">
-          {/* Stats Card Sederhana */}
           <div className="grid grid-cols-2 gap-4">
             <Card>
               <CardHeader className="pb-2">
@@ -49,7 +58,6 @@ export default async function DashboardPage() {
             </Card>
           </div>
 
-          {/* Tabel Order */}
           <Card>
             <CardHeader>
               <CardTitle>Pesanan Terbaru</CardTitle>
