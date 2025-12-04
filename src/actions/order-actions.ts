@@ -27,10 +27,13 @@ function generateOrderSummary(order: ParsedOrder): string {
 
 export async function processChatAction(
   prevState: ActionState,
-  formData: FormData
+  data: {
+    chatRaw: string;
+    userId ?: string;
+  }
 ): Promise<ActionState> {
-  const rawChat = formData.get("chatRaw") as string;
-  const userId = (formData.get("userId") as string) || "default-user";
+  const rawChat = data.chatRaw;
+  const userId = data.userId || "default-user";
 
   if (!rawChat) {
     return { success: false, message: "Chat Tidak Boleh Kosong" };
@@ -113,9 +116,9 @@ export async function processChatAction(
 
           const finalSummary = `Berikut adalah detail pesanan Anda:\n\nCustomer:\n- Nama: ${
             currentOrder.customerName
-          }\n- No. HP: ${
-            currentOrder.customerPhone
-          }\n- Alamat: ${currentOrder.address}\n\nPesanan:\n${generateOrderSummary(
+          }\n- No. HP: ${currentOrder.customerPhone}\n- Alamat: ${
+            currentOrder.address
+          }\n\nPesanan:\n${generateOrderSummary(
             currentOrder
           )}\n\nApakah semua data sudah benar?`;
 

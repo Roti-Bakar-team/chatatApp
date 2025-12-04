@@ -60,7 +60,7 @@ export function ChatInput() {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <form ref={formRef} action={formAction} className="space-y-4">
+        {/* <form ref={formRef} action={formAction} className="space-y-4">
           <div>
             <Label htmlFor="userId">User ID (Nomor HP)</Label>
             <Input
@@ -81,8 +81,8 @@ export function ChatInput() {
               required
             />
           </div>
+        </form> */}
           <SubmitButton />
-        </form>
       </CardContent>
     </Card>
   );
