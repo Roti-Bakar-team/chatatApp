@@ -39,7 +39,7 @@ export default function NotFoundPage() {
     page.description.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const handleSearch = (e) => {
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSearching(true);
     setTimeout(() => {

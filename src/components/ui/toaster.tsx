@@ -1,4 +1,4 @@
-"use client"
+"use client" // harus paling atas
 
 import { useToast } from "@/hooks/use-toast"
 import {
@@ -11,24 +11,27 @@ import {
 } from "@/components/ui/toast"
 
 export function Toaster() {
-  const { toasts } = useToast()
+  const { toasts, removeToast } = useToast()
 
   return (
     <ToastProvider>
-      {toasts.map(function ({ id, title, description, action, ...props }) {
-        return (
-          <Toast key={id} {...props}>
-            <div className="grid gap-1">
-              {title && <ToastTitle>{title}</ToastTitle>}
-              {description && (
-                <ToastDescription>{description}</ToastDescription>
-              )}
-            </div>
-            {action}
-            <ToastClose />
-          </Toast>
-        )
-      })}
+      {toasts.map(({ id, title, description, action, ...props }) => (
+        <Toast
+          key={id}
+          open={true} // toast selalu muncul saat ada di array
+          onOpenChange={(open) => {
+            if (!open) removeToast(id)
+          }}
+          {...props}
+        >
+          <div className="grid gap-1">
+            {title && <ToastTitle>{title}</ToastTitle>}
+            {description && <ToastDescription>{description}</ToastDescription>}
+          </div>
+          {action}
+          <ToastClose />
+        </Toast>
+      ))}
       <ToastViewport />
     </ToastProvider>
   )

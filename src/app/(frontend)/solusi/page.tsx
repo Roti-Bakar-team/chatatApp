@@ -7,7 +7,8 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 
 export default function SolusiPage() {
-  const [activeTab, setActiveTab] = useState('retail');
+  type SolutionKey = "retail"; 
+  const [activeTab, setActiveTab] = useState<SolutionKey>("retail");
 
   const solutions = {
     retail: {
@@ -56,20 +57,23 @@ export default function SolusiPage() {
           </div>
 
           <div className="flex flex-wrap justify-center gap-4 mb-12">
-            {Object.entries(solutions).map(([key, solution]) => (
-              <button
-                key={key}
-                onClick={() => setActiveTab(key)}
-                className={`flex items-center px-6 py-3 rounded-full font-medium transition-all ${
-                  activeTab === key
-                    ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg'
-                    : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200'
-                }`}
-              >
-                {solution.icon}
-                <span className="ml-2">{solution.title}</span>
-              </button>
-            ))}
+            {Object.entries(solutions).map(([key, solution]) => {
+              const k = key as SolutionKey; // cast key ke SolutionKey
+              return (
+                <button
+                  key={k}
+                  onClick={() => setActiveTab(k)}
+                  className={`flex items-center px-6 py-3 rounded-full font-medium transition-all ${
+                    activeTab === k
+                      ? "bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg"
+                      : "bg-white text-slate-600 hover:bg-slate-50 border border-slate-200"
+                  }`}
+                >
+                  {solution.icon}
+                  <span className="ml-2">{solution.title}</span>
+                </button>
+              );
+            })}
           </div>
 
           <div className="bg-white rounded-3xl shadow-2xl p-8 lg:p-12">

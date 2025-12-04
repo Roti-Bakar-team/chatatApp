@@ -3,9 +3,7 @@ import prisma from "../lib/prisma";
 import { ParsedItem, ParsedOrder } from "@/types";
 import { Prisma } from "../generated/prisma/client";
 
-// Helper function to safely get quantity
 const getItemQty = (item: ParsedItem): number => {
-  // The AI might return 'quantity' or 'qty'
   return (item as any).quantity || item.qty || 0;
 };
 
