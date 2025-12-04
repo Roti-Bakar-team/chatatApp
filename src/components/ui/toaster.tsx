@@ -1,5 +1,6 @@
 "use client" // harus paling atas
 
+import React from "react"
 import { useToast } from "@/hooks/use-toast"
 import {
   Toast,
@@ -15,6 +16,7 @@ export function Toaster() {
 
   return (
     <ToastProvider>
+<<<<<<< HEAD
       {toasts.map(({ id, title, description, action, ...props }) => (
         <Toast
           key={id}
@@ -24,11 +26,18 @@ export function Toaster() {
           }}
           {...props}
         >
+=======
+      {toasts.map(({ id, title, description, ...props }) => (
+        <Toast key={id} {...props}>
+>>>>>>> dev
           <div className="grid gap-1">
             {title && <ToastTitle>{title}</ToastTitle>}
             {description && <ToastDescription>{description}</ToastDescription>}
           </div>
+<<<<<<< HEAD
           {action}
+=======
+>>>>>>> dev
           <ToastClose />
         </Toast>
       ))}
