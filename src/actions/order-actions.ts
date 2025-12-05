@@ -7,7 +7,7 @@ import {
   deleteConversationState,
 } from "@/services/conversation-service";
 import { revalidatePath } from "next/cache";
-import { ActionState, ParsedOrder, ParsedItem } from "@/types";
+import { ActionState, ParsedOrder } from "@/types";
 
 // Helper function to generate a detailed order summary string
 function generateOrderSummary(order: ParsedOrder): string {

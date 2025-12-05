@@ -5,7 +5,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useWhatsApp } from "@/hooks/use-whatsapp"; // Import Hook Logika di sini
 import {
-  Loader2,
   RefreshCw,
   Smartphone,
   CheckCircle2,
@@ -87,7 +86,7 @@ export function WhatsAppQR() {
               <div className="bg-slate-50 p-3 rounded-lg text-xs text-slate-600 text-left space-y-1 border border-slate-100">
                 <p>1. Buka WhatsApp di HP</p>
                 <p>2. Menu {">"} Perangkat Tertaut</p>
-                <p>3. Klik "Tautkan Perangkat"</p>
+                <p>3. Klik &quot;Tautkan Perangkat&quot;</p>
               </div>
             </div>
           </div>

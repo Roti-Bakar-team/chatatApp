@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ArrowRight, Home, Search, RefreshCw } from 'lucide-react';
+import { ArrowRight, Home, Search } from 'lucide-react';
 import Link from 'next/link';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
@@ -9,7 +9,7 @@ import Footer from '@/components/Footer';
 export default function NotFoundPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
-  const [searchResults, setSearchResults] = useState([]);
+  const [] = useState([]);
 
   const popularPages = [
     {
@@ -95,7 +95,7 @@ export default function NotFoundPage() {
           {searchQuery && (
             <div className="max-w-2xl mx-auto mb-8">
               <h3 className="text-lg font-semibold text-slate-900 mb-4">
-                Hasil Pencarianan untuk "{searchQuery}"
+                Hasil Pencarianan untuk &quot;{searchQuery}&quot;
               </h3>
               <p className="text-slate-600 mb-8">
                 {filteredPages.length} halaman ditemukan

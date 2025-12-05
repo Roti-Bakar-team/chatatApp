@@ -4,9 +4,6 @@ import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
 import { processChatAction } from "@/actions/order-actions";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { Input } from "@/components/ui/input"; // Import Input
-import { Label } from "@/components/ui/label"; // Import Label
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useEffect, useRef } from "react";
 import { toast } from "sonner";
@@ -32,7 +29,7 @@ function SubmitButton() {
 }
 
 export function ChatInput() {
-  const [state, formAction] = useActionState(processChatAction, initialState);
+  const [state] = useActionState(processChatAction, initialState);
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
