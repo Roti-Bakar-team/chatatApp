@@ -1,14 +1,29 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { signIn } from "@/lib/auth-client";
 
 export default function LoginPage() {
+  const router = useRouter();
+  const [error, setError] = useState<string | null>(null);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null);
+    const res = await signIn.email({
+      email,
+      password,
+    });
+    if (res.error) {
+      setError(res.error.message || "Something went wrong.");
+    } else {
+      router.push("/dashboard");
+    }
     console.log({ email, password });
   };
 
@@ -18,6 +33,7 @@ export default function LoginPage() {
         <h2 className="text-3xl font-extrabold text-gray-900 mb-8 text-center">
           ChatatApp
         </h2>
+        {error && <p className="text-red-500">{error}</p>}
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
@@ -48,7 +64,7 @@ export default function LoginPage() {
 
             <div className="relative mt-2">
               <input
-                type={showPassword ? "text" : "password"} 
+                type={showPassword ? "text" : "password"}
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}

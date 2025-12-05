@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,7 +16,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Chatat - Ubah chat jadi catatan",
-  description: "Solusi untuk UMKM yang kewalahan mengelola pesanan WhatsApp. Otomatiskan pencatatan dari chat agar lebih rapi, cepat, dan bebas salah, sehingga operasional efisien dan pelanggan lebih puas",
+  description:
+    "Solusi untuk UMKM yang kewalahan mengelola pesanan WhatsApp. Otomatiskan pencatatan dari chat agar lebih rapi, cepat, dan bebas salah, sehingga operasional efisien dan pelanggan lebih puas",
   keywords: [
     "Chatat",
     "WhatsApp order management",
@@ -23,7 +25,7 @@ export const metadata: Metadata = {
     "pencatatan pesanan otomatis",
     "manajemen chat WhatsApp",
     "efisiensi operasional UMKM",
-    "solusi UMKM"
+    "solusi UMKM",
   ],
   authors: [{ name: "Chatat Developer" }],
   icons: {
@@ -31,7 +33,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Chatat - Ubah chat jadi catatan",
-    description: "Solusi untuk UMKM yang kewalahan mengelola pesanan WhatsApp. Otomatiskan pencatatan dari chat agar lebih rapi, cepat, dan bebas salah, sehingga operasional efisien dan pelanggan lebih puas",
+    description:
+      "Solusi untuk UMKM yang kewalahan mengelola pesanan WhatsApp. Otomatiskan pencatatan dari chat agar lebih rapi, cepat, dan bebas salah, sehingga operasional efisien dan pelanggan lebih puas",
     url: "#",
     siteName: "Chatat",
     type: "website",
@@ -39,7 +42,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Chatat - Ubah chat jadi catatan",
-    description: "Solusi untuk UMKM yang kewalahan mengelola pesanan WhatsApp. Otomatiskan pencatatan dari chat agar lebih rapi, cepat, dan bebas salah, sehingga operasional efisien dan pelanggan lebih puas",
+    description:
+      "Solusi untuk UMKM yang kewalahan mengelola pesanan WhatsApp. Otomatiskan pencatatan dari chat agar lebih rapi, cepat, dan bebas salah, sehingga operasional efisien dan pelanggan lebih puas",
   },
 };
 
@@ -54,7 +58,14 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
         <Toaster />
       </body>
     </html>

@@ -62,18 +62,75 @@ enum OrderStatus {
   CANCELLED
 }
 
-model Pesan {
-  id        Int      @id @default(autoincrement())
-  nomor     String
-  pesan     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
 
 // Model baru untuk menyimpan state percakapan
+
 model ConversationState {
   id           String   @id // Nomor HP customer sebagai ID unik
   state        String // Contoh: GATHERING_ITEMS, CONFIRMING_ORDER, GATHERING_CUSTOMER_INFO
-  currentOrder Json?    // Menyimpan detail order yang sedang dibangun (dalam format JSON)
+  currentOrder Json? // Menyimpan detail order yang sedang dibangun (dalam format JSON)
   updatedAt    DateTime @updatedAt
+}
+
+model User {
+  id            String    @id
+  name          String
+  email         String
+  emailVerified Boolean   @default(false)
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+
+  @@unique([email])
+  @@map("user")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
 }

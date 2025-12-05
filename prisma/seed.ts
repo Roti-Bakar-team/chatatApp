@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { PrismaClient } from "../src/generated/prisma/client";
+import { PrismaClient } from "../src/generated/prisma/client"; // Sesuaikan path ini
 import { PrismaPg } from "@prisma/adapter-pg";
+import { betterAuth } from "better-auth";
+import { prismaAdapter } from "better-auth/adapters/prisma";
 import "dotenv/config";
 
 const adapter = new PrismaPg({
@@ -11,22 +13,50 @@ const prisma = new PrismaClient({
   adapter,
 });
 
+// Inisialisasi Better Auth khusus untuk Seeding
+const auth = betterAuth({
+  database: prismaAdapter(prisma, {
+    provider: "postgresql",
+  }),
+  emailAndPassword: {
+    enabled: true,
+  },
+  // Pastikan BETTER_AUTH_SECRET ada di .env saat menjalankan seed
+});
+
 async function main() {
   console.log("🌱 Start seeding...");
 
-  // 1. Bersihkan data lama (Optional, biar id rapih)
-  // Hati-hati: ini menghapus semua produk di database!
+  // 1. BERSIHKAN DATABASE (Opsional, hati-hati di production)
   try {
-    await prisma.orderItem.deleteMany();
-    await prisma.order.deleteMany();
+    // Hapus data lama agar bersih
+    await prisma.session.deleteMany();
+    await prisma.account.deleteMany();
+    await prisma.user.deleteMany();
     await prisma.product.deleteMany();
+    console.log("🧹 Database cleaned");
   } catch (error) {
-    console.log(
-      "⚠️  Table might be empty or not created yet, skipping delete."
-    );
+    console.log("⚠️  Skip cleaning (table might be empty)");
   }
 
-  // 2. Data Dummy Produk UMKM (Warung Seblak & Cemilan)
+  // 2. CREATE ADMIN USER (Login Default)
+  console.log("👤 Creating Admin User...");
+
+  try {
+    await auth.api.signUpEmail({
+      body: {
+        email: "admin@chatat.com",
+        password: "admin123", // Password ini akan otomatis di-hash aman
+        name: "Juragan Chatat",
+      },
+      asResponse: false, // Penting: Agar tidak return HTTP Response object
+    });
+    console.log("✅ Admin Created: admin@chatat.com / admin123");
+  } catch (error) {
+    console.log("ℹ️  User admin mungkin sudah ada.");
+  }
+
+  // 3. SEED PRODUK (MENU UMKM)
   const products = [
     {
       name: "Seblak Original",
@@ -39,29 +69,9 @@ async function main() {
       description: "Seblak dengan topping sosis, bakso, dan ceker",
     },
     {
-      name: "Basreng Pedas Daun Jeruk",
-      price: 8000,
-      description: "Baso goreng renyah bumbu pedas nampol (250gr)",
-    },
-    {
-      name: "Keripik Kaca",
-      price: 5000,
-      description: "Keripik singkong tipis bening pedas (100gr)",
-    },
-    {
-      name: "Cimol Bojot",
-      price: 7000,
-      description: "Cimol goreng setengah matang bumbu bawang chili oil",
-    },
-    {
       name: "Es Teh Manis Jumbo",
       price: 4000,
       description: "Teh manis dingin ukuran cup besar",
-    },
-    {
-      name: "Es Jeruk Peras",
-      price: 5000,
-      description: "Jeruk peras asli gula batu",
     },
     {
       name: "Paket Hemat Kenyang",
@@ -70,15 +80,11 @@ async function main() {
     },
   ];
 
-  // 3. Masukkan ke Database
   for (const product of products) {
-    const result = await prisma.product.create({
-      data: product,
-    });
-    console.log(`Created product with id: ${result.id} - ${result.name}`);
+    await prisma.product.create({ data: product });
   }
 
-  console.log("✅ Seeding finished.");
+  console.log(`✅ Berhasil membuat ${products.length} menu makanan.`);
 }
 
 main()
