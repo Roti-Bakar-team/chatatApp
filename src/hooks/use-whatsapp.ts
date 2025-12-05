@@ -10,7 +10,7 @@ export function useWhatsApp() {
   const fetchQR = async () => {
     try {
       const baseUrl =
-        process.env.NEXT_PUBLIC_WA_API_URL || "http://localhost:4000";
+        process.env.NEXT_PUBLIC_API_WA_SERVER || "http://localhost:4000";
 
       const res = await fetch(`${baseUrl}/`);
       const data = await res.json();
