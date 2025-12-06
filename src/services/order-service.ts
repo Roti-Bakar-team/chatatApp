@@ -1,6 +1,7 @@
-import prisma from "../lib/prisma";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import prisma from "@/lib/prisma";
 import { ParsedItem, ParsedOrder } from "@/types";
-import { Prisma } from "../generated/prisma/client";
+import { Prisma } from "@/generated/prisma/client";
 
 const getItemQty = (item: ParsedItem): number => {
   return (item as any).quantity || item.qty || 0;

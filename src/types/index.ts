@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface ParsedItem {
   name: string;
   qty: number;
@@ -36,4 +35,22 @@ export interface AiResponse {
   intent: AiIntent;
   response: ParsedOrder | string | object;
   summary: string | null;
+}
+
+export interface User {
+  id?: string;
+  name: string;
+  email: string;
+  image?: string;
+}
+
+export interface CreatedUser extends User {
+  password: string;
+}
+
+export interface Product {
+  id?: number;
+  name: string;
+  price: number;
+  description?: string;
 }
