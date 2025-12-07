@@ -28,6 +28,7 @@ export default function LoginPage() {
       if (res.error) {
         setError(res.error.message || "Something went wrong.");
       } else {
+        router.refresh();
         router.push("/dashboard");
       }
     } catch (e) {
