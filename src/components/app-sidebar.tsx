@@ -3,11 +3,7 @@
 import * as React from "react";
 import {
   IconBuildingStore,
-  IconCamera,
   IconDashboard,
-  IconFileAi,
-  IconFileDescription,
-  IconHelp,
   IconInnerShadowTop,
   IconSettings,
   IconUsersGroup,
@@ -56,69 +52,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         icon: IconUsersGroup,
       },
     ],
-    navClouds: [
-      {
-        title: "Capture",
-        icon: IconCamera,
-        isActive: true,
-        url: "#",
-        items: [
-          {
-            title: "Active Proposals",
-            url: "#",
-          },
-          {
-            title: "Archived",
-            url: "#",
-          },
-        ],
-      },
-      {
-        title: "Proposal",
-        icon: IconFileDescription,
-        url: "#",
-        items: [
-          {
-            title: "Active Proposals",
-            url: "#",
-          },
-          {
-            title: "Archived",
-            url: "#",
-          },
-        ],
-      },
-      {
-        title: "Prompts",
-        icon: IconFileAi,
-        url: "#",
-        items: [
-          {
-            title: "Active Proposals",
-            url: "#",
-          },
-          {
-            title: "Archived",
-            url: "#",
-          },
-        ],
-      },
-    ],
+
     navSecondary: [
       {
         title: "Settings",
-        url: "#",
+        url: "/settings",
         icon: IconSettings,
       },
-      {
-        title: "Get Help",
-        url: "#",
-        icon: IconHelp,
-      },
-      
-    ],
-    documents: [
-     
     ],
   };
 
@@ -133,7 +73,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             >
               <a href="#">
                 <IconInnerShadowTop className="!size-5" />
-                <span className="text-base font-semibold">{process.env.NEXT_PUBLIC_APP_NAME}</span>
+                <span className="text-base font-semibold">
+                  {process.env.NEXT_PUBLIC_APP_NAME}
+                </span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
