@@ -35,12 +35,10 @@ export function ChatInput() {
   useEffect(() => {
     if (state.message) {
       if (state.success) {
-        // Check if data is present (meaning a final order was created)
         if (state.data) {
           formRef.current?.reset();
           toast.success("Pesanan berhasil dibuat: " + state.message);
         } else {
-          // For conversational replies, don't reset the form, just show the message
           toast.info("Respon AI: " + state.message);
         }
       } else {
@@ -57,28 +55,6 @@ export function ChatInput() {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        {/* <form ref={formRef} action={formAction} className="space-y-4">
-          <div>
-            <Label htmlFor="userId">User ID (Nomor HP)</Label>
-            <Input
-              id="userId"
-              name="userId"
-              placeholder="Contoh: 628123456789"
-              defaultValue="628123456789" // Default value for testing
-              required
-            />
-          </div>
-          <div>
-            <Label htmlFor="chatRaw">Chat dari Customer</Label>
-            <Textarea
-              id="chatRaw"
-              name="chatRaw"
-              placeholder="Paste chat pembeli di sini..."
-              className="min-h-[150px] text-base resize-none"
-              required
-            />
-          </div>
-        </form> */}
           <SubmitButton />
       </CardContent>
     </Card>

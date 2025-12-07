@@ -33,10 +33,8 @@ export function useWhatsApp() {
   useEffect(() => {
     fetchQR();
 
-    // Polling setiap 3 detik
     const interval = setInterval(fetchQR, 3000);
 
-    // Cleanup saat component dicopot
     return () => clearInterval(interval);
   }, []);
 

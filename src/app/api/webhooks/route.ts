@@ -7,14 +7,9 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { rawChat, sender, customerName } = body;
 
-    // console.log("Webhook received:", rawChat);
-
-    // 1. AI Parsing
     const aiResult = await parseChatToOrder(rawChat);
 
-    // 2. Validasi & Save
     if (aiResult?.isOrder) {
-      // Inject data sender dari WA jika AI gagal detect nama
       if (!aiResult.customerName) aiResult.customerName = customerName;
       if (!aiResult.customerPhone)
         aiResult.customerPhone = sender.replace("@s.whatsapp.net", "");

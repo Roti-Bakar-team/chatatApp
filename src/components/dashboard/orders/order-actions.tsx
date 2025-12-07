@@ -41,7 +41,6 @@ export function OrderActions({ orderId, currentStatus }: OrderActionsProps) {
   };
 
   const handleDelete = async () => {
-    // Optional: Add a confirmation dialog here
     try {
       const result = await deleteOrderAction(orderId);
       if (result.success) {

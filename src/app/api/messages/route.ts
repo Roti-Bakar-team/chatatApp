@@ -6,10 +6,8 @@ export async function POST(req: NextRequest) {
   try {
     const { number, chatRaw } = await req.json();
 
-    // Initial state for the action
     const initialState: ActionState = { success: false, message: "" };
 
-    // Correctly call the action
     const res = await processChatAction(initialState, {
       chatRaw: chatRaw,
       userId: number,

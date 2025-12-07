@@ -132,7 +132,6 @@ export async function processChatMessage(
     content = content.substring(firstBracket, lastBracket + 1);
 
     const parsedData: AiResponse = JSON.parse(content);
-    console.log("Kolosal AI Raw Response:", content);
 
     return parsedData;
   } catch (error) {
@@ -141,13 +140,9 @@ export async function processChatMessage(
   }
 }
 
-/**
- * @deprecated The single-turn order parsing is deprecated. Use stateful chat processing.
- */
 export async function parseChatToOrder(
   rawChat: string
 ): Promise<ParsedOrder | null> {
-  // This function is now just a wrapper for the initial phase of processChatMessage
   const aiResponse = await processChatMessage(rawChat);
 
   if (aiResponse && aiResponse.intent === "ORDER") {

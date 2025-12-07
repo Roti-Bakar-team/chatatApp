@@ -25,7 +25,7 @@ export async function createOrder(data: ParsedOrder, rawChat: string) {
       items: {
         create: data.items.map((item) => ({
           tempName: item.name,
-          quantity: getItemQty(item), // Use helper to get correct quantity
+          quantity: getItemQty(item),
           price: item.priceEstimate || 0,
           productId: item.matchedProductId || null,
         })),
@@ -130,12 +130,9 @@ export async function updateOrderStatus(id: number, status: OrderStatus) {
 }
 
 export async function deleteOrder(id: number) {
-  // First, delete related OrderItems due to the relation
   await prisma.orderItem.deleteMany({
     where: { orderId: id },
   });
-
-  // Then, delete the Order itself
   return await prisma.order.delete({
     where: { id },
   });

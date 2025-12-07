@@ -15,7 +15,6 @@ import { ActionState, ParsedOrder } from "@/types";
 import { OrderStatus } from "@/generated/prisma/client";
 import { sendWhatsappMessage } from "@/services/whatsapp-service";
 
-// Helper function to generate a detailed order summary string
 function generateOrderSummary(order: ParsedOrder): string {
   let total = 0;
   const itemsSummary = order.items
@@ -53,9 +52,7 @@ export async function processChatAction(
       return { success: false, message: "AI tidak dapat memproses chat ini." };
     }
 
-    // --- State Machine ---
     if (!conversationState) {
-      // No state - Start of conversation
       if (aiResult.intent === "ORDER") {
         const newOrder = aiResult.response as ParsedOrder;
         await updateConversationState(userId, "CONFIRMING_ORDER", newOrder);
@@ -68,7 +65,6 @@ export async function processChatAction(
       return { success: true, message: aiResult.response as string };
     }
 
-    // Existing state
     const currentOrder =
       conversationState.currentOrder as unknown as ParsedOrder;
 
@@ -177,7 +173,6 @@ export async function updateOrderStatusAction(
     const updatedOrder = await updateOrderStatus(orderId, status);
     revalidatePath("/(admin)/order", "page");
 
-    // Send WhatsApp notification
     if (updatedOrder && updatedOrder.customerPhone) {
       let message = "";
       switch (status) {
@@ -191,7 +186,6 @@ export async function updateOrderStatusAction(
           message = `Halo ${updatedOrder.customerName}, pesanan Anda #${orderId} telah dibatalkan sesuai permintaan Anda.`;
           break;
         default:
-          // No message for PENDING or other statuses for now
           break;
       }
 

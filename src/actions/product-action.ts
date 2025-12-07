@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
 import { createProduct, deleteProduct, getProductById, getProducts, updateProduct } from "@/services/product-service";
