@@ -62,7 +62,7 @@ export default async function Page() {
                           <TableCell className="font-medium">
                             {product.name}
                           </TableCell>
-                          <TableCell>${product.price.toString()}</TableCell>
+                          <TableCell>RP {product.price.toString()}</TableCell>
                           <TableCell>{product.description}</TableCell>
                           <TableCell>
                             <ProductActions
