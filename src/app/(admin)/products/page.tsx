@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import {
   Card,
   CardContent,
@@ -37,7 +38,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
-export default function Page() {
+import { AddProductDialog } from "@/components/dashboard/products/add-product-dialog";
+
+export default  function Page() {
+  
   return (
     <div className=" @container/main flex flex-1 flex-col gap-2">
       <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
@@ -47,10 +51,11 @@ export default function Page() {
               <div>
                 <CardTitle>Products</CardTitle>
                 <CardDescription className="mt-2">
-                  Manage your products and view their sales performance.
+                  Daftar produk yang akan dipelajari oleh AI.
                 </CardDescription>
               </div>
-              <Dialog>
+              <AddProductDialog />
+              {/* <Dialog>
                 <DialogTrigger asChild>
                   <Button>Add Product</Button>
                 </DialogTrigger>
@@ -61,31 +66,45 @@ export default function Page() {
                       Add a new product to your store.
                     </DialogDescription>
                   </DialogHeader>
-                  <div className="grid gap-4 py-4">
-                    <div className="grid grid-cols-4 items-center gap-4">
-                      <Label htmlFor="name" className="text-right">
-                        Name
-                      </Label>
-                      <Input id="name" className="col-span-3" />
+                  <form id="product-form" action={formAction}>
+                    <div className="grid gap-4 py-4">
+                      <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="name" className="text-right">
+                          Name
+                        </Label>
+                        <Input id="name" name="name" className="col-span-3" />
+                      </div>
+                      <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="price" className="text-right">
+                          Price
+                        </Label>
+                        <Input
+                          id="price"
+                          name="price"
+                          type="number"
+                          className="col-span-3"
+                        />
+                      </div>
+                      <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="description" className="text-right">
+                          Description
+                        </Label>
+                        <Textarea
+                          id="description"
+                          name="description"
+                          className="col-span-3"
+                        />
+                      </div>
                     </div>
-                    <div className="grid grid-cols-4 items-center gap-4">
-                      <Label htmlFor="price" className="text-right">
-                        Price
-                      </Label>
-                      <Input id="price" type="number" className="col-span-3" />
-                    </div>
-                    <div className="grid grid-cols-4 items-center gap-4">
-                      <Label htmlFor="description" className="text-right">
-                        Description
-                      </Label>
-                      <Textarea id="description" className="col-span-3" />
-                    </div>
-                  </div>
+                  </form>
+
                   <DialogFooter>
-                    <Button type="submit">Save changes</Button>
+                    <Button form="product-form" type="submit">
+                      Save changes
+                    </Button>
                   </DialogFooter>
                 </DialogContent>
-              </Dialog>
+              </Dialog> */}
             </CardHeader>
             <CardContent>
               <Table>
