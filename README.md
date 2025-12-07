@@ -111,6 +111,10 @@ Ini adalah aplikasi web utama yang akan Anda gunakan.
 6.  **Buka aplikasi**:
     Buka [http://localhost:3000](http://localhost:3000) di browser Anda untuk melihat hasilnya.
 
+## Live Demo
+
+Anda dapat mencoba bot WhatsApp Chatat AI kami di nomor: +62 895-1913-6369 atau langsung melalui tautan ini: [https://wa.me/6289519136369](https://wa.me/6289519136369)
+
 ## Cara Penggunaan
 
 1.  Pastikan kedua server (`wa-server` dan `chatatapp`) berjalan.
