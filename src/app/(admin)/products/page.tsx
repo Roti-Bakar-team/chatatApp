@@ -16,11 +16,11 @@ import {
 } from "@/components/ui/table";
 
 import { AddProductDialog } from "@/components/dashboard/products/add-product-dialog";
-import { productService } from "@/services/product-service";
+import { getProducts } from "@/services/product-service";
 import { ProductActions } from "@/components/dashboard/products/product-actions";
 
 export default async function Page() {
-  const products = await productService.getAll();
+  const products = await getProducts();
 
   return (
     <div className=" @container/main flex flex-1 flex-col gap-2">
