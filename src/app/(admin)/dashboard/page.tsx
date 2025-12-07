@@ -1,4 +1,10 @@
 import {
+  getDashboardStats,
+  getRecentOrders,
+  getTopProducts,
+} from "@/services/order-service";
+import { getTotalProducts } from "@/services/product-service";
+import {
   Card,
   CardContent,
   CardDescription,
@@ -15,52 +21,19 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 
-// Dummy data based on the Prisma schema
-const kpiData = {
-  totalRevenue: 12550000,
-  totalOrders: 150,
-  totalProducts: 25,
-  totalCustomers: 89,
-};
+export default async function DashboardPage() {
+  const stats = await getDashboardStats();
+  const recentOrders = await getRecentOrders();
+  const totalProducts = await getTotalProducts();
+  const topProducts = await getTopProducts();
 
-const recentOrders = [
-  {
-    id: 1,
-    customerName: "Hadiid Andri Y.",
-    customerPhone: "081234567890",
-    items: [{ tempName: "Product A", quantity: 2 }],
-    totalAmount: 50000,
-    status: "PAID",
-  },
-  {
-    id: 2,
-    customerName: "Jane Smith",
-    customerPhone: "089876543210",
-    items: [
-      { tempName: "Product B", quantity: 1 },
-      { tempName: "Product C", quantity: 3 },
-    ],
-    totalAmount: 120000,
-    status: "PENDING",
-  },
-  {
-    id: 3,
-    customerName: "Budi Santoso",
-    customerPhone: "08111222333",
-    items: [{ tempName: "Product D", quantity: 5 }],
-    totalAmount: 250000,
-    status: "DONE",
-  },
-];
+  const kpiData = {
+    totalRevenue: stats.totalRevenue.toNumber(),
+    totalOrders: stats.totalOrders,
+    totalProducts: totalProducts,
+    totalCustomers: stats.totalCustomers,
+  };
 
-const topProducts = [
-  { name: "Product D", sales: 85 },
-  { name: "Product A", sales: 72 },
-  { name: "Product C", sales: 65 },
-  { name: "Product B", sales: 41 },
-];
-
-export default function DashboardPage() {
   return (
     <div className="flex-1 space-y-6 p-4 md:p-6">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -137,13 +110,18 @@ export default function DashboardPage() {
                         .join(", ")}
                     </TableCell>
                     <TableCell>
-                      Rp {order.totalAmount.toLocaleString("id-ID")}
+                      Rp {order.totalAmount.toNumber().toLocaleString("id-ID")}
                     </TableCell>
                     <TableCell>
-                      <Badge variant={
-                        order.status === 'PAID' || order.status === 'DONE' ? 'default' : 
-                        order.status === 'PENDING' ? 'secondary' : 'destructive'
-                      }>
+                      <Badge
+                        variant={
+                          order.status === "PAID" || order.status === "DONE"
+                            ? "default"
+                            : order.status === "PENDING"
+                            ? "secondary"
+                            : "destructive"
+                        }
+                      >
                         {order.status}
                       </Badge>
                     </TableCell>
@@ -168,7 +146,9 @@ export default function DashboardPage() {
                   <div className="flex-1">
                     <p className="text-sm font-medium">{product.name}</p>
                   </div>
-                  <div className="text-sm font-semibold">{product.sales} sales</div>
+                  <div className="text-sm font-semibold">
+                    {product.sales} sales
+                  </div>
                 </div>
               ))}
             </div>

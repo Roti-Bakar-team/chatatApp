@@ -48,3 +48,56 @@ export async function getRecentOrders() {
     },
   });
 }
+
+export async function getDashboardStats() {
+  const totalRevenueResult = await prisma.order.aggregate({
+    _sum: {
+      totalAmount: true,
+    },
+    where: {
+      status: {
+        in: ["PAID", "DONE"],
+      },
+    },
+  });
+
+  const totalOrders = await prisma.order.count();
+
+  const distinctCustomers = await prisma.order.findMany({
+    select: {
+      customerPhone: true,
+    },
+    distinct: ["customerPhone"],
+    where: {
+      customerPhone: {
+        not: null,
+      },
+    },
+  });
+
+  return {
+    totalRevenue: totalRevenueResult._sum.totalAmount ?? new Prisma.Decimal(0),
+    totalOrders,
+    totalCustomers: distinctCustomers.length,
+  };
+}
+
+export async function getTopProducts() {
+  const topProducts = await prisma.orderItem.groupBy({
+    by: ["tempName"],
+    _sum: {
+      quantity: true,
+    },
+    orderBy: {
+      _sum: {
+        quantity: "desc",
+      },
+    },
+    take: 5,
+  });
+
+  return topProducts.map((p) => ({
+    name: p.tempName,
+    sales: p._sum.quantity || 0,
+  }));
+}
