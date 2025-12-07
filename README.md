@@ -103,6 +103,11 @@ Ini adalah aplikasi web utama yang akan Anda gunakan.
     npm run dev
     ```
 
+    **Akun Admin (Default)**:
+    - Email: `admin@chatat.com`
+    - Password: `admin123`
+    - Name: `Juragan Chatat`
+
 6.  **Buka aplikasi**:
     Buka [http://localhost:3000](http://localhost:3000) di browser Anda untuk melihat hasilnya.
 
