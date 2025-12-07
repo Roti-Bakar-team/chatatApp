@@ -27,7 +27,7 @@ export default function AdminLayout({
           </div>
         </SidebarInset>
       </SidebarProvider>
-      {children}
+    
     </>
   );
 }
