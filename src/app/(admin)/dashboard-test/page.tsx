@@ -3,6 +3,9 @@ import { ChatInput } from "@/components/dashboard/chat-input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { WhatsAppQR } from "@/components/dashboard/wa-qr";
 
+
+export const dynamic = "force-dynamic";
+
 // Component Async (Server Component)
 export default async function DashboardPage() {
   const recentOrders = await getRecentOrders();
