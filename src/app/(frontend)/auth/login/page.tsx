@@ -3,136 +3,135 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "@/lib/auth-client";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { BrainCircuit, Eye, EyeOff, ArrowRight } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 
 export default function LoginPage() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-    const res = await signIn.email({
-      email,
-      password,
-    });
-    if (res.error) {
-      setError(res.error.message || "Something went wrong.");
-    } else {
-      router.push("/dashboard");
+    setIsSubmitting(true);
+    try {
+      const res = await signIn.email({ email, password });
+      if (res.error) {
+        setError(res.error.message || "Something went wrong.");
+      } else {
+        router.push("/dashboard");
+      }
+    } catch (e) {
+        setError("An unexpected error occurred.");
+    } finally {
+        setIsSubmitting(false);
     }
-    console.log({ email, password });
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl p-10 w-full max-w-md">
-        <h2 className="text-3xl font-extrabold text-gray-900 mb-8 text-center">
-          ChatatApp
-        </h2>
-        {error && <p className="text-red-500">{error}</p>}
+    <div className="min-h-screen w-full lg:grid lg:grid-cols-2 bg-slate-900">
+      <div className="relative hidden lg:flex flex-col items-center justify-center p-12 bg-gradient-to-br from-slate-900 to-slate-800 border-r border-slate-700">
+        <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="max-w-md text-center"
+        >
+            <Link href="/" className="inline-flex items-center space-x-3 mb-8">
+              <BrainCircuit className="w-12 h-12 text-indigo-400" />
+              <span className="text-3xl font-bold text-white">Chatat AI</span>
+            </Link>
+            <h1 className="text-4xl font-bold text-white mt-4">
+                Welcome Back to the Future of Chat
+            </h1>
+            <p className="mt-4 text-lg text-slate-400">
+                Sign in to continue automating your business and delighting your customers.
+            </p>
+        </motion.div>
+        <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"></div>
+        <div className="absolute bottom-0 left-0 -z-10 h-1/3 w-full bg-[radial-gradient(ellipse_80%_80%_at_50%_100%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
+      </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Email <span className="text-red-600">*</span>
-            </label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="test@gmail.com"
-              required
-              className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition text-gray-600"
-            />
+      <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="w-full max-w-md space-y-8"
+        >
+          <div className="text-center">
+             <Link href="/" className="inline-flex lg:hidden items-center space-x-2 mb-6">
+              <BrainCircuit className="w-8 h-8 text-indigo-400" />
+              <span className="text-xl font-bold text-white">Chatat AI</span>
+            </Link>
+            <h2 className="text-3xl font-bold text-white">
+              Sign in to your account
+            </h2>
           </div>
 
-          <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Password <span className="text-red-600">*</span>
-            </label>
+          <div className="bg-slate-800/50 border border-slate-700 rounded-2xl p-8 shadow-2xl shadow-slate-900/50">
+            <form className="space-y-6" onSubmit={handleSubmit}>
+              <div className="space-y-2">
+                <Label htmlFor="email" className="text-slate-300">Email address</Label>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="test@example.com"
+                />
+              </div>
 
-            <div className="relative mt-2">
-              <input
-                type={showPassword ? "text" : "password"}
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-                required
-                className="block w-full px-4 py-3 pr-12 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition text-gray-600"
-              />
+              <div className="space-y-2">
+                <Label htmlFor="password">Password</Label>
+                <div className="relative">
+                  <Input
+                    id="password"
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    autoComplete="current-password"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="••••••••"
+                  />
+                   <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-3 flex items-center text-slate-400 hover:text-slate-200"
+                    >
+                        {showPassword ? <EyeOff className="h-5 w-5"/> : <Eye className="h-5 w-5"/>}
+                    </button>
+                </div>
+              </div>
+              
+              {error && <p className="text-sm text-red-400">{error}</p>}
 
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700"
-              >
-                {showPassword ? (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.64 0 8.577 3.01 9.964 7.183.07.207.07.432 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.64 0-8.577-3.01-9.964-7.178z"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                    />
-                  </svg>
-                ) : (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M3 3l18 18M10.584 10.587a2.25 2.25 0 012.829 2.829M9.88 4.724A7.46 7.46 0 0112 4.5c4.64 0 8.577 3.01 9.964 7.183.07.207.07.432 0 .639a11.5 11.5 0 01-2.235 3.592M6.228 6.23A11.5 11.5 0 002.036 11.68c-.07.207-.07.432 0 .639 1.387 4.173 5.324 7.183 9.964 7.183 1.307 0 2.563-.227 3.732-.646"
-                    />
-                  </svg>
-                )}
-              </button>
-            </div>
+              <div>
+                <Button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-700" disabled={isSubmitting}>
+                  {isSubmitting ? "Signing in..." : <>Sign In <ArrowRight className="ml-2 h-4 w-4"/></>}
+                </Button>
+              </div>
+            </form>
           </div>
-
-          <button
-            type="submit"
-            className="w-full py-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold rounded-xl shadow-lg hover:from-emerald-600 hover:to-teal-700 hover:shadow-xl transition-all px-8"
-          >
-            Masuk
-          </button>
-        </form>
-
-        {/* <p className="mt-6 text-center text-gray-600 text-sm">
-          Belum punya akun?{" "}
-          <a href="#" className="text-emerald-600 font-medium hover:underline">
-            Daftar
-          </a>
-        </p> */}
+            <p className="text-center text-sm text-slate-400">
+                Don't have an account?{' '}
+                <Link href="#" className="font-medium text-indigo-400 hover:text-indigo-300">
+                    Sign up
+                </Link>
+            </p>
+        </motion.div>
       </div>
     </div>
   );
