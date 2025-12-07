@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import {
+  IconBuildingStore,
   IconCamera,
   IconChartBar,
   IconDashboard,
@@ -17,6 +18,7 @@ import {
   IconSearch,
   IconSettings,
   IconUsers,
+  IconUsersGroup,
 } from "@tabler/icons-react";
 
 import { NavDocuments } from "@/components/nav-documents";
@@ -53,24 +55,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         icon: IconDashboard,
       },
       {
-        title: "Lifecycle",
+        title: "Products",
         url: "#",
-        icon: IconListDetails,
+        icon: IconBuildingStore,
       },
       {
-        title: "Analytics",
+        title: "Users",
         url: "#",
-        icon: IconChartBar,
-      },
-      {
-        title: "Projects",
-        url: "#",
-        icon: IconFolder,
-      },
-      {
-        title: "Team",
-        url: "#",
-        icon: IconUsers,
+        icon: IconUsersGroup,
       },
     ],
     navClouds: [
@@ -132,28 +124,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         url: "#",
         icon: IconHelp,
       },
-      {
-        title: "Search",
-        url: "#",
-        icon: IconSearch,
-      },
+      
     ],
     documents: [
-      {
-        name: "Data Library",
-        url: "#",
-        icon: IconDatabase,
-      },
-      {
-        name: "Reports",
-        url: "#",
-        icon: IconReport,
-      },
-      {
-        name: "Word Assistant",
-        url: "#",
-        icon: IconFileWord,
-      },
+     
     ],
   };
 
@@ -168,7 +142,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             >
               <a href="#">
                 <IconInnerShadowTop className="!size-5" />
-                <span className="text-base font-semibold">Acme Inc.</span>
+                <span className="text-base font-semibold">{process.env.NEXT_PUBLIC_APP_NAME}</span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -176,7 +150,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavDocuments items={data.documents} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
