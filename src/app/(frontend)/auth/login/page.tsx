@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useState } from "react";
@@ -126,7 +127,7 @@ export default function LoginPage() {
             </form>
           </div>
             <p className="text-center text-sm text-slate-400">
-                Don't have an account?{' '}
+                Don&lsquo;t have an account?{' '}
                 <Link href="#" className="font-medium text-indigo-400 hover:text-indigo-300">
                     Sign up
                 </Link>
