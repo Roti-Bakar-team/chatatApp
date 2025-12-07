@@ -6,7 +6,7 @@ import {
   IconDashboard,
   IconInnerShadowTop,
   IconSettings,
-  IconUsersGroup,
+  IconSortAscendingShapes,
 } from "@tabler/icons-react";
 
 import { NavMain } from "@/components/nav-main";
@@ -47,9 +47,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         icon: IconBuildingStore,
       },
       {
-        title: "Users",
-        url: "/users",
-        icon: IconUsersGroup,
+        title: "Orders",
+        url: "/order",
+        icon: IconSortAscendingShapes,
       },
     ],
 

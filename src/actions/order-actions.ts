@@ -1,6 +1,10 @@
 "use server";
 import { processChatMessage } from "@/services/ai-service";
-import { createOrder } from "@/services/order-service";
+import {
+  createOrder,
+  deleteOrder,
+  updateOrderStatus,
+} from "@/services/order-service";
 import {
   getConversationState,
   updateConversationState,
@@ -8,6 +12,8 @@ import {
 } from "@/services/conversation-service";
 import { revalidatePath } from "next/cache";
 import { ActionState, ParsedOrder } from "@/types";
+import { OrderStatus } from "@/generated/prisma/client";
+import { sendWhatsappMessage } from "@/services/whatsapp-service";
 
 // Helper function to generate a detailed order summary string
 function generateOrderSummary(order: ParsedOrder): string {
@@ -29,7 +35,7 @@ export async function processChatAction(
   prevState: ActionState,
   data: {
     chatRaw: string;
-    userId ?: string;
+    userId?: string;
   }
 ): Promise<ActionState> {
   const rawChat = data.chatRaw;
@@ -160,5 +166,54 @@ export async function processChatAction(
   } catch (error) {
     console.error(error);
     return { success: false, message: "Terjadi kesalahan server" };
+  }
+}
+
+export async function updateOrderStatusAction(
+  orderId: number,
+  status: OrderStatus
+): Promise<ActionState> {
+  try {
+    const updatedOrder = await updateOrderStatus(orderId, status);
+    revalidatePath("/(admin)/order", "page");
+
+    // Send WhatsApp notification
+    if (updatedOrder && updatedOrder.customerPhone) {
+      let message = "";
+      switch (status) {
+        case "PAID":
+          message = `Halo ${updatedOrder.customerName}, pembayaran untuk pesanan Anda #${orderId} telah kami terima. Pesanan Anda sedang kami siapkan. Terima kasih!`;
+          break;
+        case "DONE":
+          message = `Halo ${updatedOrder.customerName}, pesanan Anda #${orderId} telah selesai dan siap untuk dikirim/diambil. Terima kasih telah berbelanja!`;
+          break;
+        case "CANCELLED":
+          message = `Halo ${updatedOrder.customerName}, pesanan Anda #${orderId} telah dibatalkan sesuai permintaan Anda.`;
+          break;
+        default:
+          // No message for PENDING or other statuses for now
+          break;
+      }
+
+      if (message) {
+        await sendWhatsappMessage(updatedOrder.customerPhone, message);
+      }
+    }
+
+    return { success: true, message: `Order status updated to ${status}` };
+  } catch (error) {
+    console.error(error);
+    return { success: false, message: "Failed to update order status." };
+  }
+}
+
+export async function deleteOrderAction(orderId: number): Promise<ActionState> {
+  try {
+    await deleteOrder(orderId);
+    revalidatePath("/(admin)/order", "page");
+    return { success: true, message: "Order deleted successfully" };
+  } catch (error) {
+    console.error(error);
+    return { success: false, message: "Failed to delete order." };
   }
 }

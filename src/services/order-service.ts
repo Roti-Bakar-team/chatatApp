@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import prisma from "@/lib/prisma";
 import { ParsedItem, ParsedOrder } from "@/types";
-import { Prisma } from "@/generated/prisma/client";
+import { OrderStatus, Prisma } from "@/generated/prisma/client";
 
 const getItemQty = (item: ParsedItem): number => {
   return (item as any).quantity || item.qty || 0;
@@ -100,4 +100,43 @@ export async function getTopProducts() {
     name: p.tempName,
     sales: p._sum.quantity || 0,
   }));
+}
+
+export async function getOrders() {
+  return await prisma.order.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+    include: {
+      items: true,
+    },
+  });
+}
+
+export async function getOrderById(id: number) {
+  return await prisma.order.findUnique({
+    where: { id },
+    include: {
+      items: true,
+    },
+  });
+}
+
+export async function updateOrderStatus(id: number, status: OrderStatus) {
+  return await prisma.order.update({
+    where: { id },
+    data: { status },
+  });
+}
+
+export async function deleteOrder(id: number) {
+  // First, delete related OrderItems due to the relation
+  await prisma.orderItem.deleteMany({
+    where: { orderId: id },
+  });
+
+  // Then, delete the Order itself
+  return await prisma.order.delete({
+    where: { id },
+  });
 }
