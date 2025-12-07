@@ -11,7 +11,7 @@
  * @returns An object indicating the success or failure of the operation.
  */
 export async function sendWhatsappMessage(to: string, message: string) {
-  // eslint-disable-next-line no-console
+   
   console.log(`Sending WhatsApp message to ${to}: "${message}"`);
 
   // --- UNCOMMENT THIS TO ENABLE REAL WHATSAPP MESSAGING ---
