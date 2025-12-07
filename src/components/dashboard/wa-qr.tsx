@@ -17,10 +17,10 @@ export function WhatsAppQR() {
 
   return (
     <Card className="w-full border-slate-200 shadow-sm overflow-hidden">
-      <CardHeader className="bg-slate-50 border-b border-slate-100 pb-4">
+      <CardHeader className=" border-b border-slate-100 pb-4">
         <CardTitle className="text-lg text-slate-800 flex items-center gap-2">
-          <Smartphone className="w-5 h-5 text-indigo-600" />
-          Koneksi WhatsApp
+          <Smartphone className="w-5 h-5 text-white" />
+         <span className="text-white">Koneksi WhatsApp</span>
         </CardTitle>
       </CardHeader>
 
