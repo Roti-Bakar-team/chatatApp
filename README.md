@@ -1,8 +1,6 @@
-# ChatatApp
+# Chatat AI
 
-Selamat datang di ChatatApp! Aplikasi ini memungkinkan Anda untuk berkomunikasi dengan cara baru, mengintegrasikan obrolan langsung di aplikasi dengan akun WhatsApp Anda.
-
-![image](https://github.com/hadiidandriy/chatatapp/assets/57421908/42b91c13-a442-45a7-96a8-f86055c82a17)
+Selamat datang di Chatat AI! Aplikasi ini memungkinkan Anda untuk berkomunikasi dengan cara baru, mengintegrasikan obrolan langsung di aplikasi dengan akun WhatsApp Anda.
 
 ## Fitur
 
@@ -119,7 +117,14 @@ Ini adalah aplikasi web utama yang akan Anda gunakan.
 
 Berikut adalah beberapa tangkapan layar dari aplikasi:
 
-*Tambahkan screenshot di sini*
-
-![Contoh Screenshot 1](URL_SCREENSHOT_1)
-![Contoh Screenshot 2](URL_SCREENSHOT_2)
+![Screenshot 1](public/images/1.jpeg)
+![Screenshot 2](public/images/2.jpeg)
+![Screenshot 3](public/images/3.jpeg)
+![Screenshot 4](public/images/4.jpeg)
+![Screenshot 5](public/images/5.jpeg)
+![Screenshot 6](public/images/6.jpeg)
+![Screenshot 7](public/images/7.jpeg)
+![Screenshot 8](public/images/8.jpeg)
+![Screenshot 9](public/images/9.jpeg)
+![Screenshot 10](public/images/10.jpeg)
+![Screenshot 11](public/images/11.jpeg)
