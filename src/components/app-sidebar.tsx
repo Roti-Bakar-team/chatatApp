@@ -52,7 +52,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       },
       {
         title: "Users",
-        url: "#",
+        url: "/users",
         icon: IconUsersGroup,
       },
     ],
