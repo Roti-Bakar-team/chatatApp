@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
-import { productService } from "@/services/product-service";
+import { createProduct, deleteProduct, getProductById, getProducts, updateProduct } from "@/services/product-service";
 import { ActionState } from "@/types";
 import { revalidatePath } from "next/cache";
 
@@ -21,7 +21,7 @@ export async function createProductAction(
   }
 
   try {
-    await productService.create({
+    await createProduct({
       name,
       price: Number(price),
       description,
@@ -58,7 +58,7 @@ export async function updateProductAction(
   }
 
   try {
-    await productService.update(Number(id), {
+    await updateProduct(Number(id), {
       name,
       price: Number(price),
       description,
@@ -80,7 +80,7 @@ export async function updateProductAction(
 
 export async function deleteProductAction(id: number): Promise<ActionState> {
   try {
-    await productService.delete(id);
+    await deleteProduct(id);
     revalidatePath("/products");
     return {
       success: true,
@@ -97,7 +97,7 @@ export async function deleteProductAction(id: number): Promise<ActionState> {
 
 export async function fetchProductAction() {
   try {
-    const products = await productService.getAll();
+    const products = await getProducts();
     return {
       success: true,
       data: products,
@@ -113,7 +113,7 @@ export async function fetchProductAction() {
 
 export async function fetchProductByIdAction(id: number) {
   try {
-    const product = await productService.getOne(Number(id));
+    const product = await getProductById(Number(id));
     return {
       success: true,
       data: product,
