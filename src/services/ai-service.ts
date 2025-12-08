@@ -111,7 +111,7 @@ export async function processChatMessage(
     );
 
     const completion = await client.chat.completions.create({
-      model: "Qwen 3 30BA3B",
+      model: "Claude Sonnet 4.5",
       messages: [
         { role: "system", content: systemPrompt },
         { role: "user", content: rawChat },

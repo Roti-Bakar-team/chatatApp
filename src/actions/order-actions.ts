@@ -1,5 +1,5 @@
 "use server";
-import { processChatMessage } from "@/services/gemini-service";
+import { processChatMessage } from "@/services/ai-service";
 import {
   createOrder,
   deleteOrder,
