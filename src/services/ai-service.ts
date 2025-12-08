@@ -111,7 +111,7 @@ export async function processChatMessage(
     );
 
     const completion = await client.chat.completions.create({
-      model: "GLM 4.6",
+      model: "Llama 4 Maverick",
       messages: [
         { role: "system", content: systemPrompt },
         { role: "user", content: rawChat },
