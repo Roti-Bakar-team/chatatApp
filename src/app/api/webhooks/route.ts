@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseChatToOrder } from "@/services/ai-service";
+import { parseChatToOrder } from "@/services/gemini-service";
 import { createOrder } from "@/services/order-service";
 
 export async function POST(req: Request) {
