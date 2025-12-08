@@ -111,7 +111,7 @@ export async function processChatMessage(
     );
 
     const completion = await client.chat.completions.create({
-      model: "Claude Sonnet 4.5",
+      model: "GLM 4.6",
       messages: [
         { role: "system", content: systemPrompt },
         { role: "user", content: rawChat },
@@ -126,7 +126,10 @@ export async function processChatMessage(
     const firstBracket = content.indexOf("{");
     const lastBracket = content.lastIndexOf("}");
     if (firstBracket === -1 || lastBracket === -1) {
-      console.error("AI response did not contain a valid JSON object.", content);
+      console.error(
+        "AI response did not contain a valid JSON object.",
+        content
+      );
       return null;
     }
     content = content.substring(firstBracket, lastBracket + 1);
